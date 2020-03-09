@@ -1,19 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from './views/Login.js'
+import Registration from './views/Registration.js'
 
+const AuthStack = createStackNavigator() 
+const AuthStackScreen = () => {
+  return(
+    <AuthStack.Navigator>
+        <AuthStack.Screen 
+          name="Login" 
+          component={Login} 
+          options={{title: 'Sign In'}}
+          />
+        <AuthStack.Screen 
+          name="Registration" 
+          component={Registration} 
+          options={{title: 'Sign Up'}}
+          />
+      </AuthStack.Navigator>
+  )
+  
+}
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <AuthStackScreen/>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
