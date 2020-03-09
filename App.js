@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo'
 
+//Async function to add custom fonts into application
 const fetchFonts = () => {
     return Font.loadAsync({
       'montserrat-bold': require('./assets/fonts/Montserrat-Bold.otf'),
@@ -20,6 +21,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    //Get time for the fonts to load
     if(this.state.isLoading) {
       return (
         <AppLoading
