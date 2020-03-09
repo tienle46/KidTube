@@ -1,5 +1,5 @@
 import React from 'react';
-import {AuthStackScreen} from './routes/AuthStack.js'
+import {AppStackScreen} from './routes/AppStack.js'
 import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo'
@@ -16,7 +16,7 @@ export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      isLoading: true
+      isLoading: true,
     }
   }
 
@@ -32,7 +32,7 @@ export default class App extends React.Component {
     } else {
       return (
         <NavigationContainer>
-          <AuthStackScreen/>
+          <AppStackScreen/>
         </NavigationContainer>
         );
     }

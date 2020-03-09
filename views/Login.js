@@ -6,6 +6,7 @@ import {
 } from '../helpers/ResponsiveHelper.js'
 import {StringText} from '../core/en.js'
 
+
 const appIcon = require('../assets/images/kidtubeIcon.png')
 export default class Login extends Component {
     constructor() {
@@ -15,7 +16,7 @@ export default class Login extends Component {
         }
     }
 
-    getButtonTextColor(input) {
+    getButtonTextColor = (input) => {
         if (input === 'signin') {
             if(this.state.signIn) {
                 return 'black'
@@ -28,6 +29,10 @@ export default class Login extends Component {
                 return '#CDCDCD'
         }
         
+    }
+
+    onSignInButtonPressed = () => {
+        this.props.navigation.navigate('HomeTab')
     }
 
     render() {
@@ -71,7 +76,7 @@ export default class Login extends Component {
                             placeholder = 'Password'
                         />
                     </View>
-                    <TouchableOpacity style= {styles.signButton}>
+                    <TouchableOpacity style= {styles.signButton} onPress = {this.onSignInButtonPressed}>
                             <Text style = {styles.buttonText}>{StringText.signIn}</Text>
                     </TouchableOpacity>
                     <View style = {{height: hp('23%')}}/>
