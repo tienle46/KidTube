@@ -4,6 +4,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
+import {StringText} from '../core/en.js'
 
 const appIcon = require('../assets/images/kidtubeIcon.png')
 export default class Login extends Component {
@@ -37,8 +38,8 @@ export default class Login extends Component {
                         style={styles.appIcon}
                         source={appIcon}
                     />
-                    <Text style = {styles.title}>Hello</Text>
-                    <Text style = {styles.instruction}>You need to sign in or Create a new account</Text>
+                    <Text style = {styles.title}>{StringText.welcome}</Text>
+                    <Text style = {styles.instruction}>{StringText.authRequirement}</Text>
                 </View>
                 <View style = {styles.buttonContainer}>
                     <TouchableWithoutFeedback 
@@ -71,7 +72,7 @@ export default class Login extends Component {
                         />
                     </View>
                     <TouchableOpacity style= {styles.signButton}>
-                            <Text style = {styles.buttonText}>Sign in</Text>
+                            <Text style = {styles.buttonText}>{StringText.signIn}</Text>
                     </TouchableOpacity>
                     <View style = {{height: hp('23%')}}/>
                 </View> 
@@ -96,7 +97,7 @@ export default class Login extends Component {
                         />
                     </View>
                     <TouchableOpacity style= {styles.signButton}>
-                            <Text style = {styles.buttonText}>Sign up</Text>
+                            <Text style = {styles.buttonText}>{StringText.signUp}</Text>
                     </TouchableOpacity>
                     <View style = {{height: hp('14.8%')}}/>
                 </View>}
