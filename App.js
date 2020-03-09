@@ -1,32 +1,41 @@
 import React from 'react';
+import {AuthStackScreen} from './routes/AuthStack.js'
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from './views/Login.js'
-import Registration from './views/Registration.js'
+import * as Font from 'expo-font';
+import {AppLoading} from 'expo'
 
-const AuthStack = createStackNavigator() 
-const AuthStackScreen = () => {
-  return(
-    <AuthStack.Navigator>
-        <AuthStack.Screen 
-          name="Login" 
-          component={Login} 
-          options={{title: 'Sign In'}}
-          />
-        <AuthStack.Screen 
-          name="Registration" 
-          component={Registration} 
-          options={{title: 'Sign Up'}}
-          />
-      </AuthStack.Navigator>
-  )
+const fetchFonts = () => {
+    return Font.loadAsync({
+      'montserrat-bold': require('./assets/fonts/Montserrat-Bold.otf'),
+      'montserrat-regular': require('./assets/fonts/Montserrat-Regular.otf'),
+      'montserrat-light': require('./assets/fonts/Montserrat-Light.otf'),
+    });
+  }
+export default class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      isLoading: true
+    }
+  }
+
+  render() {
+    if(this.state.isLoading) {
+      return (
+        <AppLoading
+          startAsync = {fetchFonts}
+          onFinish= {() => this.setState({isLoading: false})}
+        />
+      )
+    } else {
+      return (
+        <NavigationContainer>
+          <AuthStackScreen/>
+        </NavigationContainer>
+        );
+    }
+    
+  }
   
-}
-export default function App() {
-  return (
-    <NavigationContainer>
-      <AuthStackScreen/>
-    </NavigationContainer>
-  );
 }
 
