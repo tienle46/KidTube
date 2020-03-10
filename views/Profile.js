@@ -11,7 +11,7 @@ const profileFunctions = [
     {
         id : '1',
         icon: 'ios-heart-empty',
-        name: 'My favorite',
+        name: 'My favorites',
         textColor: '#7e7e7e'
     },
     {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         color: '#7e7e7e',
     },
     optionListItem: {
-        height: '75%',
+        height: '70%',
         width: wp('100%'),
         flexDirection: 'row',
         justifyContent: 'flex-start',
