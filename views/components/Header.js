@@ -12,9 +12,9 @@ export default class Header extends Component {
         return(
             <View style = {styles.container}>
                 <View style = {styles.headerContainer}>
-                    <Ionicons name = 'ios-home' color = 'white' size = {35}/>
+                    <Ionicons name = 'ios-home' color = 'white' size = {30}/>
                     <Text style = {styles.logoText}>KidTube</Text>
-                    <Ionicons name = 'ios-search' color = 'white' size = {35}/>
+                    <Ionicons name = 'ios-search' color = 'white' size = {30}/>
                 </View>
             </View>
         )
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     logoText: {
-        fontSize: 24,
+        fontSize: 21,
         fontFamily: 'montserrat-bold',
         color: 'white'
     }

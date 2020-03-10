@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     contentInfo: {
         fontFamily: 'montserrat-regular',
         fontSize: 13,
-        color: '#9e9e9e'
+        color: '#7e7e7e'
     }
 })
