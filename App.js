@@ -10,6 +10,7 @@ const fetchFonts = () => {
       'montserrat-bold': require('./assets/fonts/Montserrat-Bold.otf'),
       'montserrat-regular': require('./assets/fonts/Montserrat-Regular.otf'),
       'montserrat-light': require('./assets/fonts/Montserrat-Light.otf'),
+      'montserrat-semibold': require('./assets/fonts/Montserrat-SemiBold.otf'),
     });
   }
 export default class App extends React.Component {
