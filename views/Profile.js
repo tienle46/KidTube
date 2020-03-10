@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import {StyleSheet, Text, View, Image, FlatList, TouchableOpacity} from 'react-native'
 import Header from './components/Header.js'
 const blackImage = require('../assets/images/black.png')
 import {
@@ -7,6 +7,32 @@ import {
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
 import { Ionicons } from '@expo/vector-icons';
+const profileFunctions = [
+    {
+        id : '1',
+        icon: 'ios-heart-empty',
+        name: 'My favorite',
+        textColor: '#7e7e7e'
+    },
+    {
+        id : '2',
+        icon: 'ios-person',
+        name: 'My videos',
+        textColor: '#7e7e7e'
+    },
+    {
+        id : '3',
+        icon: 'ios-checkmark-circle-outline',
+        name: 'Waiting for checking',
+        textColor: '#7e7e7e'
+    },
+    {
+        id : '4',
+        icon: 'ios-power',
+        name: 'Log out',
+        textColor: '#FF4EB8'
+    },
+]
 
 export default class Profile extends Component {
 
@@ -48,6 +74,16 @@ export default class Profile extends Component {
                         <Text style = {styles.statisticCount}>Posts</Text>
                     </View>
                 </View>
+                <FlatList
+                    data={profileFunctions}
+                    scrollEnabled = {false}
+                    renderItem = {({item}) => (
+                        <TouchableOpacity style = {styles.optionListItem}>
+                            <Ionicons name = {item.icon} color = {item.textColor} size = {20}/>
+                            <Text style = {[styles.optionListItemTitle, {color: item.textColor}]}>{item.name}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
             </View>
         )
     }
@@ -115,7 +151,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         height: '10%',
         width: '100%',
-        marginTop: '-5%'
+        marginTop: '-5%',
+        marginBottom: '5%'
     },
     cellStatistic: {
         flexDirection: 'column',
@@ -136,5 +173,19 @@ const styles = StyleSheet.create({
         fontFamily: 'montserrat-regular',
         fontSize: 20,
         color: '#7e7e7e',
+    },
+    optionListItem: {
+        height: '75%',
+        width: wp('100%'),
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        paddingLeft: wp('7.5%'),
+        alignItems: 'center'
+    },
+    optionListItemTitle: {
+        fontFamily: 'montserrat-bold',
+        fontSize: 20,
+        color: '#7e7e7e',
+        marginLeft: '5%'
     }
 })
