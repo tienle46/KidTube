@@ -7,16 +7,19 @@ import Media from '../views/Media.js'
 const MediaStack = createStackNavigator() 
 export const MediaStackScreen = () => {
   return(
-    <MediaStack.Navigator headerMode = 'none'>
-        <MediaStack.Screen 
-            name="HomeTab" 
-            component={HomeTabScreen} 
-          />
-        <MediaStack.Screen 
-            name="Media" 
-            component={Media} 
-          />
-      </MediaStack.Navigator>
+    <MediaStack.Navigator 
+      headerMode = 'none'
+      initialRoute = 'HomeTab'
+      >
+      <MediaStack.Screen 
+          name="HomeTab" 
+          component={HomeTabScreen} 
+        />
+      <MediaStack.Screen 
+          name="Media" 
+          component={Media} 
+        />
+    </MediaStack.Navigator>
   )
   
 }
