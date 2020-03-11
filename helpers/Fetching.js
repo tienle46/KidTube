@@ -1,8 +1,19 @@
-const postData = async (url = '', headers = {}, body = {}) => {
+// const postData = async (url = '', headers = {}, body = {}) => {
+//     const response = await fetch(url, {
+//         method: 'POST',
+//         headers: headers,
+//         body: JSON.stringify(body)
+//     })
+//     return await response.json()
+// }
+
+const postData = async (url = '', 
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}, 
+    body = '') => {
     const response = await fetch(url, {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify(body)
+        body: body
     })
     return await response.json()
 }

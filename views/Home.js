@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, ScrollView} from 'react-native'
+import {StyleSheet, Text, View, ScrollView, AsyncStorage} from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -8,7 +8,13 @@ import Header from './components/Header.js'
 import Content from './components/Content.js'
 
 export default class Home extends Component {
+    componentDidMount() {
+        this.getData()
+    }
 
+    getData = async () => {
+        console.log(await AsyncStorage.getItem('user'))
+    }
     render() {
         return(
             <View style = {styles.container}>

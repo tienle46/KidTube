@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, Image, TextInput, TouchableWithoutFeedback, TouchableOpacity, AsyncStorage} from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
 import {StringText} from '../core/en.js'
-
+import Authentication from '../helpers/Authentication.js'
+import {postData, getData} from '../helpers/Fetching.js'
 
 const appIcon = require('../assets/images/kidtubeIcon.png')
 export default class Login extends Component {
@@ -31,8 +32,12 @@ export default class Login extends Component {
         
     }
 
-    onSignInButtonPressed = () => {
-        this.props.navigation.navigate('HomeTab')
+    onSignInButtonPressed = async () => {
+        // this.props.navigation.navigate('HomeTab')
+        let login = await Authentication.login(this.state.signInUsername,this.state.signInPassword)
+        // console.log(login)
+        if(Login)
+            this.props.navigation.navigate('HomeTab')
     }
 
     render() {
@@ -67,13 +72,18 @@ export default class Login extends Component {
                     <View style = {styles.textInput}> 
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
-                            placeholder = 'Email address'
+                            placeholder = 'Username'
+                            autoCapitalize = 'none'
+                            onChangeText = {text => this.setState({signInUsername: text})}
                         />
                     </View>
                     <View style = {styles.textInput}> 
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
                             placeholder = 'Password'
+                            autoCapitalize = 'none'
+                            secureTextEntry = {true}
+                            onChangeText = {text => this.setState({signInPassword: text})}
                         />
                     </View>
                     <TouchableOpacity style= {styles.signButton} onPress = {this.onSignInButtonPressed}>
