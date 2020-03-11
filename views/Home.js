@@ -8,13 +8,7 @@ import Header from './components/Header.js'
 import Content from './components/Content.js'
 
 export default class Home extends Component {
-    componentDidMount() {
-        this.getData()
-    }
 
-    getData = async () => {
-        console.log(await AsyncStorage.getItem('user'))
-    }
     render() {
         return(
             <View style = {styles.container}>

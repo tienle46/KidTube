@@ -5,9 +5,43 @@ import {AsyncStorage} from 'react-native'
 const Authentication = {
     login : async (username, password) => {
         const loginURL = `${Linking.API_URL}${Linking.API_LOGIN}`
-        const loginAction = await postData(loginURL, {'Content-Type': 'application/x-www-form-urlencoded'},`username=${username}&password=${password}`)
+        let params = `username=${username}&password=${password}`
+        const loginAction = await postData(loginURL, {'Content-Type': 'application/x-www-form-urlencoded'},params)
         return handleLoginStatus(loginAction)
     },
+    signUp: async (username, password, email) => {
+        const signUpURL = `${Linking.API_URL}${Linking.API_SIGNUP}`
+        let params = `username=${username}&password=${password}&email=${email}`
+        const signUpAction = await postData(signUpURL, {'Content-Type': 'application/x-www-form-urlencoded'},params)
+        return handleSignUpStatus(signUpAction, username)
+    },
+    logout: async () => {
+        await AsyncStorage.removeItem('token')
+        await AsyncStorage.removeItem('user')
+    }
+}
+
+const handleSignUpStatus = (data, username) => {
+    switch(data.message) {
+        case Warning.SIGNUP_SUCCESS:
+            return true
+        case Warning.SIGNUP_FAIL:
+            switch(data.error) {
+                case Warning.SIGNUP_ERROR_INVALID_USERNAME:
+                    alert(Warning.SIGNUP_ERROR_INVALID_USERNAME)
+                    break
+                case Warning.SIGNUP_ERROR_INVALID_PASSWORD:
+                    alert(Warning.SIGNUP_ERROR_INVALID_PASSWORD)
+                    break
+                case Warning.SIGNUP_ERROR_INVALID_EMAIL:
+                    alert(Warning.SIGNUP_ERROR_INVALID_EMAIL)
+                    break
+                case `ER_DUP_ENTRY: Duplicate entry '${username}' for key 'username'`:
+                    alert(Warning.SIGNUP_ERROR_DUPLICATE_USERNAME)
+                    break
+            }
+            return false
+    }
 }
 
 const handleLoginStatus = (data) => {

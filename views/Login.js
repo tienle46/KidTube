@@ -33,11 +33,20 @@ export default class Login extends Component {
     }
 
     onSignInButtonPressed = async () => {
-        // this.props.navigation.navigate('HomeTab')
         let login = await Authentication.login(this.state.signInUsername,this.state.signInPassword)
-        // console.log(login)
-        if(Login)
+        if(login)
             this.props.navigation.navigate('HomeTab')
+    }
+
+    onSignUpButtonPressed = async () => {
+        if(!this.state.confimedPassword)
+            alert('Password does not match!')
+        let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername)
+        if (signUp) {
+            let login = await Authentication.login(this.state.signUpUsername,this.state.signUpPassword)
+            if(Login)
+                this.props.navigation.navigate('HomeTab')
+        }
     }
 
     render() {
@@ -97,21 +106,33 @@ export default class Login extends Component {
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
                             placeholder = 'Email address'
+                            autoCapitalize = 'none'
+                            onChangeText = {text => this.setState({signUpUsername: text})}
                         />
                     </View>
                     <View style = {styles.textInput}> 
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
                             placeholder = 'Password'
+                            autoCapitalize = 'none'
+                            secureTextEntry = {true}
+                            onChangeText = {text => this.setState({signUpPassword: text})}
                         />
                     </View>
                     <View style = {styles.textInput}> 
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
                             placeholder = 'Repeat Password'
+                            autoCapitalize = 'none'
+                            secureTextEntry = {true}
+                            onChangeText = {text => {
+                                if (text === this.state.signUpPassword) 
+                                    this.setState({confimedPassword: true})
+                                else this.setState({confimedPassword: false})
+                            }}
                         />
                     </View>
-                    <TouchableOpacity style= {styles.signButton}>
+                    <TouchableOpacity style= {styles.signButton} onPress = {this.onSignUpButtonPressed}>
                             <Text style = {styles.buttonText}>{StringText.signUp}</Text>
                     </TouchableOpacity>
                     <View style = {{height: hp('14.8%')}}/>

@@ -7,6 +7,7 @@ import {
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
 import { Ionicons } from '@expo/vector-icons';
+import Authentication from '../helpers/Authentication.js'
 const profileFunctions = [
     {
         id : '1',
@@ -35,6 +36,28 @@ const profileFunctions = [
 ]
 
 export default class Profile extends Component {
+    actionOnRows = (itemId) => {
+        switch (itemId) {
+            case '1':
+                
+                break;
+            case '2':
+                
+                break;
+            case '3':
+                
+                break;
+            case '4':
+                this.signOutAction()
+                break;
+        }
+    }
+
+    signOutAction = async () => {
+        await Authentication.logout()
+        this.props.navigation.navigate('AuthStack')
+    }
+
 
     render() {
         return(
@@ -78,7 +101,7 @@ export default class Profile extends Component {
                     data={profileFunctions}
                     scrollEnabled = {false}
                     renderItem = {({item}) => (
-                        <TouchableOpacity style = {styles.optionListItem}>
+                        <TouchableOpacity style = {styles.optionListItem} onPress = {() => this.actionOnRows(item.id)}>
                             <Ionicons name = {item.icon} color = {item.textColor} size = {20}/>
                             <Text style = {[styles.optionListItemTitle, {color: item.textColor}]}>{item.name}</Text>
                         </TouchableOpacity>
