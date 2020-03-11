@@ -97,14 +97,16 @@ export default class Media extends Component {
                 <View style = {styles.commentContainer}>
                     <View style = {styles.commentInputContainer}>
                         <TextInput
+                            ref = 'comment'
                             style = {styles.commentBox}
                             placeholder = {'Write a comment'}
                             onChangeText = {text => this.setState({comment: text})}
-                            onSubmitEditing = {() => {this.onSubmitCommentButtonPressed()}}
+                            onSubmitEditing = {() => {
+                                this.onSubmitCommentButtonPressed()
+                                this.refs.comment.clear()
+                                }}
                         />
-
                     </View>
-                    
                 </View>
                 }
             </View>
