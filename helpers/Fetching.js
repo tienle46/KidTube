@@ -18,7 +18,7 @@ const postData = async (url = '',
     return await response.json()
 }
 
-const getData = async (url = '', headers = {}, body = {}) => {
+const getData = async (url = '', headers = {}) => {
     const response = await fetch(url, {
         method: 'GET',
         headers: headers,

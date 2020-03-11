@@ -10,7 +10,7 @@ const Authentication = {
         return handleLoginStatus(loginAction)
     },
     signUp: async (username, password, email) => {
-        const signUpURL = `${Linking.API_URL}${Linking.API_SIGNUP}`
+        const signUpURL = `${Linking.API_URL}${Linking.API_USERS}`
         let params = `username=${username}&password=${password}&email=${email}`
         const signUpAction = await postData(signUpURL, {'Content-Type': 'application/x-www-form-urlencoded'},params)
         return handleSignUpStatus(signUpAction, username)

@@ -12,12 +12,12 @@ export default class Content extends Component {
     render() {
         return(
             <View style = {styles.container}>
-                <Image source = {blackImage} style = {styles.thumbnail}/>
+                <Image source = {{uri: this.props.thumbnailSource}} style = {styles.thumbnail}/>
                 <View style = {styles.informationContainer}>
                     <Image source = {blackImage} style = {styles.userImage}/>
                     <View style = {styles.contentInformation}>
-                        <Text style = {styles.contentName}>ASKJDASNASNDASD</Text>
-                        <Text style = {styles.contentInfo}>ASKJDASNASNDASD . sjka. sds</Text>
+                        <Text style = {styles.contentName}>{this.props.filename}</Text>
+                        <Text style = {styles.contentInfo}>{this.props.username} . {this.props.timeUploaded}</Text>
                     </View>
                 </View>
             </View>
