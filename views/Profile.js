@@ -55,7 +55,7 @@ export default class Profile extends Component {
 
     signOutAction = async () => {
         await Authentication.logout()
-        this.props.navigation.navigate('Login')
+        this.props.navigation.navigate('AuthStack')
     }
 
 

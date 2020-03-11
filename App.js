@@ -54,8 +54,7 @@ export default class App extends React.Component {
     } else {
       return (
         <NavigationContainer>
-          {/* <AppStackScreen/> */}
-          {!this.state.loggedIn ? <AppStackScreen/> : <MediaStackScreen/>}
+          {!this.state.loggedIn ? <AppStackScreen initRoute = {'AuthStack'}/> : <AppStackScreen initRoute = {'MediaStack'}/>}
         </NavigationContainer>
         );
     }

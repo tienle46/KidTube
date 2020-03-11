@@ -6,18 +6,21 @@ import {HomeTabScreen} from '../routes/HomeTab.js'
 import {MediaStackScreen} from '../routes/MediaStack.js'
 
 const AppStack = createStackNavigator() 
-export const AppStackScreen = () => {
+export const AppStackScreen = ({initRoute}) => {
   return(
-    <AppStack.Navigator headerMode = 'none'>
-        <AppStack.Screen 
-          name="AuthStack" 
-          component={AuthStackScreen} 
-          />
-        <AppStack.Screen 
-          name="MediaStack" 
-          component={MediaStackScreen} 
-          />
-      </AppStack.Navigator>
+    <AppStack.Navigator 
+      headerMode = 'none'
+      initialRouteName = {initRoute}
+      >
+      <AppStack.Screen 
+        name="AuthStack" 
+        component={AuthStackScreen} 
+        />
+      <AppStack.Screen 
+        name="MediaStack" 
+        component={MediaStackScreen} 
+        />
+    </AppStack.Navigator>
   )
   
 }
