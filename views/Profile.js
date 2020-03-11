@@ -55,14 +55,16 @@ export default class Profile extends Component {
 
     signOutAction = async () => {
         await Authentication.logout()
-        this.props.navigation.navigate('AuthStack')
+        this.props.navigation.navigate('Login')
     }
 
 
     render() {
         return(
             <View style = {styles.container}>
-                <Header/>
+                <Header
+                    backButton = {false}
+                />
                 <View style = {styles.profileInfoContainer}>
                     <View style = {styles.identityContainer}>
                         <Image source = {blackImage} style = {styles.profilePic}/>

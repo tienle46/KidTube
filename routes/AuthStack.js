@@ -11,12 +11,10 @@ export const AuthStackScreen = () => {
         <AuthStack.Screen 
           name="Login" 
           component={Login} 
-          options={{title: 'none'}}
           />
         <AuthStack.Screen 
           name="Registration" 
           component={Registration} 
-          options={{title: 'Sign Up'}}
           />
       </AuthStack.Navigator>
   )

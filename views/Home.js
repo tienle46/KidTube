@@ -29,6 +29,7 @@ export default class Home extends Component {
         let flatListData = []
         for (let i = 0; i < listVideo.length; i++) {
             let videoUrl = `${Linking.API_URL}${Linking.API_UPLOADS}/${listVideo[i].filename}`
+            let videoId = listVideo[i].file_id
             let videoTitle = listVideo[i].title
             let videoScreenShotUrl = getVideoScreenShot(listVideo[i].filename)
             let videoDate = moment(listVideo[i].time_added).fromNow()
@@ -36,6 +37,7 @@ export default class Home extends Component {
             let username = usernameObject.username
             let videoObject = {
                 id: `${i}`,
+                videoId: videoId,
                 videoUrl: videoUrl,
                 videoTitle: videoTitle,
                 videoScreenShotUrl: videoScreenShotUrl,
@@ -49,8 +51,13 @@ export default class Home extends Component {
 
     initScreen = async () => {
         let listVideo = await getAllVideoByTag('kidtube')
+        console.log(listVideo)
         let flatListData = await this.handleFlatListData(listVideo)
         this.setState({flatListData: flatListData})
+    }
+
+    onContentPress = (item) => {
+        this.props.navigation.navigate('Media', {item: item})
     }
 
     render() {
@@ -64,7 +71,9 @@ export default class Home extends Component {
                 />)
         else return(
             <View style = {styles.container}>
-                <Header/>
+                <Header
+                    backButton = {false}
+                />
                 <FlatList
                     data = {this.state.flatListData}
                     renderItem = {({item}) => (
@@ -73,6 +82,7 @@ export default class Home extends Component {
                             username = {item.username}
                             timeUploaded = {item.videoDate}
                             thumbnailSource = {item.videoScreenShotUrl}
+                            onContentPress = {() => {this.onContentPress(item)}}
                         />
                     )}
                 />

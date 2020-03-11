@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -12,7 +12,15 @@ export default class Header extends Component {
         return(
             <View style = {styles.container}>
                 <View style = {styles.headerContainer}>
-                    <Ionicons name = 'ios-home' color = 'white' size = {30}/>
+                    {this.props.backButton ? 
+                    <TouchableOpacity onPress = {this.props.onBackButtonPress}>
+                        <Ionicons name = 'ios-arrow-back' color = 'white' size = {30}/>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress = {this.props.onHomeButtonPress}>
+                        <Ionicons name = 'ios-home' color = 'white' size = {30}/>
+                    </TouchableOpacity>
+                    }
                     <Text style = {styles.logoText}>KidTube</Text>
                     <Ionicons name = 'ios-search' color = 'white' size = {30}/>
                 </View>

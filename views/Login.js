@@ -35,7 +35,7 @@ export default class Login extends Component {
     onSignInButtonPressed = async () => {
         let login = await Authentication.login(this.state.signInUsername,this.state.signInPassword)
         if(login)
-            this.props.navigation.navigate('HomeTab')
+            this.props.navigation.navigate('MediaStack')
     }
 
     onSignUpButtonPressed = async () => {

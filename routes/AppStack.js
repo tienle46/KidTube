@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {AuthStackScreen} from '../routes/AuthStack.js'
 import {HomeTabScreen} from '../routes/HomeTab.js'
+import {MediaStackScreen} from '../routes/MediaStack.js'
 
 const AppStack = createStackNavigator() 
 export const AppStackScreen = () => {
@@ -13,8 +14,8 @@ export const AppStackScreen = () => {
           component={AuthStackScreen} 
           />
         <AppStack.Screen 
-          name="HomeTab" 
-          component={HomeTabScreen} 
+          name="MediaStack" 
+          component={MediaStackScreen} 
           />
       </AppStack.Navigator>
   )

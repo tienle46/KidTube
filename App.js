@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo'
 import {AsyncStorage} from 'react-native'
+import {MediaStackScreen} from './routes/MediaStack.js'
 
 //Async function to add custom fonts into application
 
@@ -54,7 +55,7 @@ export default class App extends React.Component {
       return (
         <NavigationContainer>
           {/* <AppStackScreen/> */}
-          {!this.state.loggedIn ? <AppStackScreen/> : <HomeTabScreen/>}
+          {!this.state.loggedIn ? <AppStackScreen/> : <MediaStackScreen/>}
         </NavigationContainer>
         );
     }

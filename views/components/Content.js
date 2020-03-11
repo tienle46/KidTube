@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, Image, Dimensions} from 'react-native'
+import {StyleSheet, Text, View, Image, Dimensions, TouchableOpacity} from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -11,7 +11,7 @@ export default class Content extends Component {
 
     render() {
         return(
-            <View style = {styles.container}>
+            <TouchableOpacity style = {styles.container} onPress = {this.props.onContentPress}>
                 <Image source = {{uri: this.props.thumbnailSource}} style = {styles.thumbnail}/>
                 <View style = {styles.informationContainer}>
                     <Image source = {blackImage} style = {styles.userImage}/>
@@ -20,7 +20,7 @@ export default class Content extends Component {
                         <Text style = {styles.contentInfo}>{this.props.username} . {this.props.timeUploaded}</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
