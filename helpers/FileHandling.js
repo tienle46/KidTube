@@ -21,12 +21,16 @@ const getAllVideoByTag = async (tag) => {
     return videoList
 }
 
+const getCensorStatus = async (fileId) => {
+    let url = `${Linking.API_URL}${Linking.API_MEDIA}/${fileId}`
+    let fileInfo = await getData(url)
+    console.log(fileInfo.description)
+}
+
 const getVideoScreenShot = (filename) => {
     const match = /\.(\w+)$/.exec(filename)
-    console.log(filename)
     let screenShotFileName = filename.split(match[0]).join('.png')
     let url = `${Linking.API_URL}${Linking.API_UPLOADS}/${screenShotFileName}`
-    console.log(url)
     return url
 }
 
@@ -41,11 +45,11 @@ const uploadVideo = async (file, title, description) => {
     const filename = file.uri.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `video/${match[1]}` : `video`;
-    console.log(type)
     let body = new FormData()
     body.append('title', title)
     body.append('description', description)
     body.append('file', {uri: file.uri, name: filename, type});
+    console.log(body)
     let userToken = await getUserToken()
     let headers = {
         'x-access-token': userToken
@@ -73,5 +77,6 @@ export {
     getUserToken,
     getAllCommentByPostId,
     uploadVideo,
-    addTag
+    addTag,
+    getCensorStatus
 }

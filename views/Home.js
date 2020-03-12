@@ -9,7 +9,8 @@ import Content from './components/Content.js'
 import {
     getUserByUserId,
     getAllVideoByTag,
-    getVideoScreenShot
+    getVideoScreenShot,
+    getCensorStatus
 } from '../helpers/FileHandling.js'
 import {AppLoading} from 'expo'
 import Linking from '../core/Linking.js'
@@ -35,6 +36,7 @@ export default class Home extends Component {
             let videoDate = moment(listVideo[i].time_added).fromNow()
             let usernameObject = await getUserByUserId(listVideo[i].user_id)
             let username = usernameObject.username
+            let censorStatus = await getCensorStatus(videoId)
             let videoObject = {
                 id: `${i}`,
                 videoId: videoId,

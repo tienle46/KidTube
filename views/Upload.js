@@ -53,13 +53,11 @@ export default class Upload extends Component {
     }
 
     handleDescription = (description) => {
-        let finalDescription = new FormData()
         let descriptionObject = {
             description: description,
             censored: false
         }
-        finalDescription.append('description', JSON.stringify(descriptionObject))
-        return finalDescription
+        return JSON.stringify(descriptionObject)
     }
 
     _pickVideo = async () => {
@@ -69,7 +67,6 @@ export default class Upload extends Component {
             quality: 0.7
         });
         if (!result.cancelled) {
-            console.log(result)
             this.setState({ video: result });
         }
     };
