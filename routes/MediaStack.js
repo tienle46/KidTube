@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {HomeTabScreen} from './HomeTab.js'
 import Media from '../views/Media.js'
+import Upload from '../views/Upload.js'
 
 const MediaStack = createStackNavigator() 
 export const MediaStackScreen = () => {
@@ -12,13 +13,17 @@ export const MediaStackScreen = () => {
       initialRoute = 'HomeTab'
       >
       <MediaStack.Screen 
-          name="HomeTab" 
-          component={HomeTabScreen} 
-        />
+        name="HomeTab" 
+        component={HomeTabScreen} 
+      />
       <MediaStack.Screen 
-          name="Media" 
-          component={Media} 
-        />
+        name="Media" 
+        component={Media} 
+      />
+      <MediaStack.Screen 
+        name="Upload" 
+        component={Upload} 
+      />
     </MediaStack.Navigator>
   )
   
