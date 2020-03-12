@@ -59,6 +59,10 @@ export default class Home extends Component {
         this.props.navigation.navigate('Media', {item: item})
     }
 
+    navigateToUpload = () => {
+        this.props.navigation.navigate('Upload')
+    }
+
     render() {
         if (this.state.isLoading) 
             return(
@@ -71,7 +75,8 @@ export default class Home extends Component {
         else return(
             <View style = {styles.container}>
                 <Header
-                    backButton = {false}
+                    icon = 'add'
+                    onIconButtonPressed = {this.navigateToUpload}
                 />
                 <FlatList
                     data = {this.state.flatListData}

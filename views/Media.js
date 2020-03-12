@@ -84,8 +84,8 @@ export default class Media extends Component {
         else return(
             <View style = {styles.container}>
                 <Header
-                    backButton = {true}
-                    onBackButtonPress = {this.goBack}
+                    icon = 'back'
+                    onIconButtonPressed = {this.goBack}
                 />
 
                 <Video

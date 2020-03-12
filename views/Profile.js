@@ -57,13 +57,16 @@ export default class Profile extends Component {
         await Authentication.logout()
         this.props.navigation.navigate('AuthStack')
     }
-
+    navigateToHome = () => {
+        this.props.navigation.navigate('Home')
+    }
 
     render() {
         return(
             <View style = {styles.container}>
                 <Header
-                    backButton = {false}
+                    icon = 'home'
+                    onIconButtonPressed = {this.navigateToHome}
                 />
                 <View style = {styles.profileInfoContainer}>
                     <View style = {styles.identityContainer}>

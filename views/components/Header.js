@@ -7,22 +7,27 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 export default class Header extends Component {
+    convertToIconName = (func) => {
+        switch (func) {
+            case 'back':
+                return 'ios-arrow-back'
+            case 'home':
+                return 'ios-home'
+            case 'add':
+                return 'ios-add'
+        }
+    }
 
     render() {
         return(
             <View style = {styles.container}>
                 <View style = {styles.headerContainer}>
-                    {this.props.backButton ? 
-                    <TouchableOpacity onPress = {this.props.onBackButtonPress}>
-                        <Ionicons name = 'ios-arrow-back' color = 'white' size = {30}/>
+                    <TouchableOpacity onPress = {this.props.onIconButtonPressed}>
+                        <Ionicons name = {this.convertToIconName(this.props.icon)} color = 'white' size = {30}/>
                     </TouchableOpacity>
-                    :
-                    <TouchableOpacity onPress = {this.props.onHomeButtonPress}>
-                        <Ionicons name = 'ios-home' color = 'white' size = {30}/>
-                    </TouchableOpacity>
-                    }
                     <Text style = {styles.logoText}>KidTube</Text>
-                    <Ionicons name = 'ios-search' color = 'white' size = {30}/>
+                    {/* <Ionicons name = 'ios-search' color = 'white' size = {30}/> */}
+                    <View style = {{width : 30, height :30}}/>
                 </View>
             </View>
         )
