@@ -5,6 +5,7 @@ import {HomeTabScreen} from './HomeTab.js'
 import Media from '../views/Media.js'
 import Upload from '../views/Upload.js'
 import Censor from '../views/Censor.js'
+import Checking from '../views/Checking.js'
 
 const MediaStack = createStackNavigator() 
 export const MediaStackScreen = () => {
@@ -28,6 +29,10 @@ export const MediaStackScreen = () => {
       <MediaStack.Screen 
         name="Censor" 
         component={Censor} 
+      />
+      <MediaStack.Screen 
+        name="Checking" 
+        component={Checking} 
       />
     </MediaStack.Navigator>
   )

@@ -46,12 +46,11 @@ export default class Censor extends Component {
     }
 
     onContentPress = (item) => {
-        console.warn('asd')
-        this.props.navigation.navigate('Media', {item: item})
+        this.props.navigation.navigate('Checking', {item: item})
     }
 
     backtoProfile = () => {
-        this.props.navigation.navigate('Profile')
+        this.props.navigation.goBack()
     }
 
     render() {
