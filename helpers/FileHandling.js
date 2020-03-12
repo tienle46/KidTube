@@ -51,11 +51,24 @@ const uploadVideo = async (file, title, description) => {
     return uploadAction
 }
 
+const addTag = async (fileId) => {
+    let url = `${Linking.API_URL}${Linking.API_TAGS}`
+    let userToken = await getUserToken()
+    let headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'x-access-token': userToken
+    }
+    let params = `file_id=${fileId}&tag=kidtube`
+    const addTagAction = await postData(url, headers,params)
+    return addTagAction
+}
+
 export {
     getUserByUserId,
     getAllVideoByTag,
     getVideoScreenShot,
     getUserToken,
     getAllCommentByPostId,
-    uploadVideo
+    uploadVideo,
+    addTag
 }

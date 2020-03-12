@@ -9,7 +9,7 @@ import Header from './components/Header.js'
 import * as ImagePicker from 'expo-image-picker'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
-import {uploadVideo} from '../helpers/FileHandling.js'
+import {uploadVideo, addTag} from '../helpers/FileHandling.js'
 import Warning from '../core/Warning.js'
 
 export default class Upload extends Component {
@@ -41,8 +41,12 @@ export default class Upload extends Component {
             let uploadAction = await uploadVideo(this.state.video, this.state.title, this.state.description)
         
             if(uploadAction.message === 'File uploaded') {
-                alert(Warning.UPLOAD_SUCCESS)
-                this.props.navigation.push('HomeTab')
+                let addTagAction = await addTag(uploadAction.file_id)
+                if (addTagAction.message === 'Tag added') {
+                    alert(Warning.UPLOAD_SUCCESS)
+                    this.props.navigation.push('HomeTab')
+                } else 
+                    alert('UPLOAD_ERROR')
             } else 
                 alert('UPLOAD_ERROR')
         }
