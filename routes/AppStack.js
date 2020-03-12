@@ -1,20 +1,19 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {AuthStackScreen} from '../routes/AuthStack.js'
+import Login from '../views/Login.js'
 import {HomeTabScreen} from '../routes/HomeTab.js'
 import {MediaStackScreen} from '../routes/MediaStack.js'
 
 const AppStack = createStackNavigator() 
-export const AppStackScreen = ({initRoute}) => {
+export const AppStackScreen = () => {
   return(
     <AppStack.Navigator 
       headerMode = 'none'
-      initialRouteName = {initRoute}
       >
       <AppStack.Screen 
-        name="AuthStack" 
-        component={AuthStackScreen} 
+        name="Login" 
+        component={Login} 
         />
       <AppStack.Screen 
         name="MediaStack" 

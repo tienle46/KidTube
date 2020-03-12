@@ -7,13 +7,15 @@ import {
 import {StringText} from '../core/en.js'
 import Authentication from '../helpers/Authentication.js'
 import {postData, getData} from '../helpers/Fetching.js'
+import {AppLoading} from 'expo'
 
 const appIcon = require('../assets/images/kidtubeIcon.png')
 export default class Login extends Component {
     constructor() {
         super()
         this.state = {
-            signIn : true
+            signIn : true,
+            isLoading: true
         }
     }
 
@@ -38,19 +40,37 @@ export default class Login extends Component {
             this.props.navigation.navigate('MediaStack')
     }
 
+    initScreen = async () => {
+        let token = await AsyncStorage.getItem('token')
+        console.log(token)
+        if(token) {
+            this.props.navigation.navigate('MediaStack')
+        }
+    }
+
     onSignUpButtonPressed = async () => {
         if(!this.state.confimedPassword)
             alert('Password does not match!')
         let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername, this.state.signUpFullname)
         if (signUp) {
             let login = await Authentication.login(this.state.signUpUsername,this.state.signUpPassword)
-            if(Login)
-                this.props.navigation.navigate('HomeTab')
+            if(login)
+                this.props.navigation.navigate('MediaStack')
         }
     }
 
     render() {
-        return(
+        if(this.state.isLoading) {
+            return(
+                <AppLoading
+                    startAsync = {this.initScreen}
+                    onFinish= {() => {
+                        this.setState({isLoading: false})
+                    }}
+                />
+            )
+        } else {
+            return(
             <View style = {styles.backgroundContainer}>
                 <View style = {styles.headerContainer}>
                     <Image
@@ -147,6 +167,8 @@ export default class Login extends Component {
                 </View>}
             </View>
         )
+        }
+        
     }
 }
 

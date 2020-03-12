@@ -1,6 +1,5 @@
 import React from 'react';
 import {AppStackScreen} from './routes/AppStack.js'
-import {AuthStackScreen} from './routes/AuthStack.js'
 import {HomeTabScreen} from './routes/HomeTab.js'
 import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
@@ -27,17 +26,8 @@ export default class App extends React.Component {
     });
   }
 
-  checkUserToken = async () => {
-    let userToken = await AsyncStorage.getItem('token')
-    if (userToken)
-    this.setState({loggedIn: true})
-    else 
-      this.setState({loggedIn: false})
-  }
-
   loading = async () => {
     await this.fetchFonts()
-    await this.checkUserToken()
   }
 
   render() {
@@ -54,7 +44,7 @@ export default class App extends React.Component {
     } else {
       return (
         <NavigationContainer>
-          {!this.state.loggedIn ? <AppStackScreen initRoute = {'AuthStack'}/> : <AppStackScreen initRoute = {'MediaStack'}/>}
+          <AppStackScreen/>
         </NavigationContainer>
         );
     }

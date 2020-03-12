@@ -25,7 +25,6 @@ const getDescObject = async (fileId) => {
     let url = `${Linking.API_URL}${Linking.API_MEDIA}/${fileId}`
     let fileInfo = await getData(url)
     let descObject = JSON.parse(fileInfo.description)
-    console.log(descObject)
     return descObject
 }
 

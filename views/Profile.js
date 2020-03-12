@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, Image, FlatList, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, Image, FlatList, TouchableOpacity, AsyncStorage} from 'react-native'
 import Header from './components/Header.js'
 const blackImage = require('../assets/images/black.png')
 import {
@@ -8,7 +8,8 @@ import {
 } from '../helpers/ResponsiveHelper.js'
 import { Ionicons } from '@expo/vector-icons';
 import Authentication from '../helpers/Authentication.js'
-const profileFunctions = [
+import {AppLoading} from 'expo'
+let profileFunctions = [
     {
         id : '1',
         icon: 'ios-heart-empty',
@@ -36,6 +37,12 @@ const profileFunctions = [
 ]
 
 export default class Profile extends Component {
+    constructor() {
+        super()
+        this.state = {
+            isLoading: true,
+        }
+    }
     actionOnRows = (itemId) => {
         switch (itemId) {
             case '1':
@@ -55,65 +62,100 @@ export default class Profile extends Component {
 
     signOutAction = async () => {
         await Authentication.logout()
-        this.props.navigation.navigate('AuthStack')
+        this.props.navigation.navigate('Login')
     }
     navigateToHome = () => {
         this.props.navigation.navigate('Home')
     }
 
+    initScreen = async () => {
+        let userInfo = await AsyncStorage.getItem('userIsAdmin')
+        if(userInfo !=='true') {
+            profileFunctions = [
+    {
+        id : '1',
+        icon: 'ios-heart-empty',
+        name: 'My favorites',
+        textColor: '#7e7e7e'
+    },
+    {
+        id : '2',
+        icon: 'ios-person',
+        name: 'My videos',
+        textColor: '#7e7e7e'
+    },
+    {
+        id : '4',
+        icon: 'ios-power',
+        name: 'Log out',
+        textColor: '#FF4EB8'
+    },
+]
+        }
+    }
+
     render() {
-        return(
-            <View style = {styles.container}>
-                <Header
-                    icon = 'home'
-                    onIconButtonPressed = {this.navigateToHome}
-                />
-                <View style = {styles.profileInfoContainer}>
-                    <View style = {styles.identityContainer}>
-                        <Image source = {blackImage} style = {styles.profilePic}/>
-                        <View style = {styles.nameAndAddress}>
-                            <Text style = {styles.usernameText}>Le Minh Tien</Text>
-                            <Text style = {styles.addressText}>Timpurinkuja 1 A 5, 02650, Espoo</Text>
+        if (this.state.isLoading)
+            return (
+                <AppLoading
+                    startAsync = {this.initScreen}
+                    onFinish= {() => {
+                        this.setState({isLoading: false})
+                    }}
+                />)
+        else
+            return(
+                <View style = {styles.container}>
+                    <Header
+                        icon = 'home'
+                        onIconButtonPressed = {this.navigateToHome}
+                    />
+                    <View style = {styles.profileInfoContainer}>
+                        <View style = {styles.identityContainer}>
+                            <Image source = {blackImage} style = {styles.profilePic}/>
+                            <View style = {styles.nameAndAddress}>
+                                <Text style = {styles.usernameText}>Le Minh Tien</Text>
+                                <Text style = {styles.addressText}>Timpurinkuja 1 A 5, 02650, Espoo</Text>
+                            </View>
+                        </View>
+                        <View style = {styles.additionalInfoContainer}>
+                            <View style = {styles.phoneContainer}>
+                                <Ionicons name = 'ios-call' color = '#7e7e7e' size = {20}/>
+                                <Text style= {styles.additionalInfoText}>Tel: 0407379344</Text>
+                            </View>
+                            <View style = {styles.phoneContainer}>
+                                <Ionicons name = 'ios-mail' color = '#7e7e7e' size = {20}/>
+                                <Text style= {styles.additionalInfoText}>Email: </Text>
+                                <Text style= {[styles.additionalInfoText, {marginLeft:0}]}>tienle4695@gmail.com</Text>
+                            </View>
                         </View>
                     </View>
-                    <View style = {styles.additionalInfoContainer}>
-                        <View style = {styles.phoneContainer}>
-                            <Ionicons name = 'ios-call' color = '#7e7e7e' size = {20}/>
-                            <Text style= {styles.additionalInfoText}>Tel: 0407379344</Text>
+                    <View style = {styles.statisticContainer}>
+                        <View style = {styles.cellStatistic}>
+                            <Text style = {styles.statisticNumber}>
+                                1234
+                            </Text>
+                            <Text style = {styles.statisticCount}>Posts</Text>
                         </View>
-                        <View style = {styles.phoneContainer}>
-                            <Ionicons name = 'ios-mail' color = '#7e7e7e' size = {20}/>
-                            <Text style= {styles.additionalInfoText}>Email: </Text>
-                            <Text style= {[styles.additionalInfoText, {marginLeft:0}]}>tienle4695@gmail.com</Text>
+                        <View style = {[styles.cellStatistic, {borderLeftWidth: 1}]}>
+                            <Text style = {styles.statisticNumber}>
+                                1234
+                            </Text>
+                            <Text style = {styles.statisticCount}>Posts</Text>
                         </View>
                     </View>
+                    <FlatList
+                        data={profileFunctions}
+                        scrollEnabled = {false}
+                        renderItem = {({item}) => (
+                            <TouchableOpacity style = {styles.optionListItem} onPress = {() => this.actionOnRows(item.id)}>
+                                <Ionicons name = {item.icon} color = {item.textColor} size = {20}/>
+                                <Text style = {[styles.optionListItemTitle, {color: item.textColor}]}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )}
+                    />
                 </View>
-                <View style = {styles.statisticContainer}>
-                    <View style = {styles.cellStatistic}>
-                        <Text style = {styles.statisticNumber}>
-                            1234
-                        </Text>
-                        <Text style = {styles.statisticCount}>Posts</Text>
-                    </View>
-                    <View style = {[styles.cellStatistic, {borderLeftWidth: 1}]}>
-                        <Text style = {styles.statisticNumber}>
-                            1234
-                        </Text>
-                        <Text style = {styles.statisticCount}>Posts</Text>
-                    </View>
-                </View>
-                <FlatList
-                    data={profileFunctions}
-                    scrollEnabled = {false}
-                    renderItem = {({item}) => (
-                        <TouchableOpacity style = {styles.optionListItem} onPress = {() => this.actionOnRows(item.id)}>
-                            <Ionicons name = {item.icon} color = {item.textColor} size = {20}/>
-                            <Text style = {[styles.optionListItemTitle, {color: item.textColor}]}>{item.name}</Text>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-        )
+            )
     }
 }
 

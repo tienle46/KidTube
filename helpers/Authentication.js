@@ -23,6 +23,7 @@ const Authentication = {
     logout: async () => {
         await AsyncStorage.removeItem('token')
         await AsyncStorage.removeItem('user')
+        await AsyncStorage.removeItem('userIsAdmin')
     }
 }
 
@@ -49,11 +50,10 @@ const handleSignUpStatus = (data, username) => {
     }
 }
 
-const handleLoginStatus = (data) => {
+const handleLoginStatus = async  (data) => {
     switch(data.message) {
         case Warning.LOGIN_SUCCESS:
-            // alert('logged in')
-            saveLoginData(data.token, data.user)
+            await saveLoginData(data.token, data.user)
             return (data)
         case Warning.LOGIN_FAILED_USERNAME:
             alert('Please check your username!')
