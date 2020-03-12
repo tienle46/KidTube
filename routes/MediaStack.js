@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {HomeTabScreen} from './HomeTab.js'
 import Media from '../views/Media.js'
 import Upload from '../views/Upload.js'
+import Censor from '../views/Censor.js'
 
 const MediaStack = createStackNavigator() 
 export const MediaStackScreen = () => {
@@ -23,6 +24,10 @@ export const MediaStackScreen = () => {
       <MediaStack.Screen 
         name="Upload" 
         component={Upload} 
+      />
+      <MediaStack.Screen 
+        name="Censor" 
+        component={Censor} 
       />
     </MediaStack.Navigator>
   )

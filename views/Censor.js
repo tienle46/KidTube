@@ -18,7 +18,7 @@ import Linking from '../core/Linking.js'
 import moment from 'moment'
 import ContentList from './components/ContentList.js'
 
-export default class Home extends Component {
+export default class Censor extends Component {
     constructor() {
         super()
         this.state = {
@@ -32,7 +32,7 @@ export default class Home extends Component {
         let flatListData = []
         let contentList = await handleContentList(listVideo)
         for (let i = 0; i<contentList.length; i++) {
-            if(contentList[i].censoredStatus) {
+            if(!contentList[i].censoredStatus) {
                 flatListData.push(contentList[i])
             }
         }
@@ -46,11 +46,12 @@ export default class Home extends Component {
     }
 
     onContentPress = (item) => {
+        console.warn('asd')
         this.props.navigation.navigate('Media', {item: item})
     }
 
-    navigateToUpload = () => {
-        this.props.navigation.navigate('Upload')
+    backtoProfile = () => {
+        this.props.navigation.navigate('Profile')
     }
 
     render() {
@@ -65,12 +66,12 @@ export default class Home extends Component {
         else return(
             <View style = {styles.container}>
                 <Header
-                    icon = 'add'
-                    onIconButtonPressed = {this.navigateToUpload}
+                    icon = 'back'
+                    onIconButtonPressed = {this.backtoProfile}
                 />
                 <ContentList 
                     data = {this.state.flatListData}
-                    onContentPress = {(this.onContentPress)}
+                    onContentPress = {this.onContentPress}
                 />
             </View>
         )

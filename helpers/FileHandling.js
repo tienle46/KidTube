@@ -1,6 +1,7 @@
 import {postData, getData, postFormData} from './Fetching.js'
 import Linking from '../core/Linking'
 import {AsyncStorage} from 'react-native'
+import moment from 'moment'
 
 const getUserToken = async () => {
     return await AsyncStorage.getItem('token')
@@ -70,6 +71,35 @@ const addTag = async (fileId) => {
     return addTagAction
 }
 
+const handleContentList = async (listVideo) => {
+        let contentList = []
+        for (let i = 0; i < listVideo.length; i++) {
+            let videoUrl = `${Linking.API_URL}${Linking.API_UPLOADS}/${listVideo[i].filename}`
+            let videoId = listVideo[i].file_id
+            let videoTitle = listVideo[i].title
+            let videoScreenShotUrl = getVideoScreenShot(listVideo[i].filename)
+            let videoDate = moment(listVideo[i].time_added).fromNow()
+            let usernameObject = await getUserByUserId(listVideo[i].user_id)
+            let username = usernameObject.username
+            let descObject = await getDescObject(listVideo[i].file_id)
+            let videoDescription = descObject.description
+            let censoredStatus = descObject.censored
+            let videoObject = {
+                id: `${i}`,
+                videoId: videoId,
+                videoUrl: videoUrl,
+                videoTitle: videoTitle,
+                videoScreenShotUrl: videoScreenShotUrl,
+                videoDate: videoDate,
+                username: username,
+                censoredStatus: censoredStatus,
+                videoDescription: videoDescription
+            }
+            contentList.push(videoObject)
+        }
+        return contentList
+    }
+
 export {
     getUserByUserId,
     getAllVideoByTag,
@@ -78,5 +108,6 @@ export {
     getAllCommentByPostId,
     uploadVideo,
     addTag,
-    getDescObject
+    getDescObject,
+    handleContentList
 }

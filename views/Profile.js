@@ -52,7 +52,7 @@ export default class Profile extends Component {
                 
                 break;
             case '3':
-                
+                this.navigateToCensorList()
                 break;
             case '4':
                 this.signOutAction()
@@ -66,6 +66,10 @@ export default class Profile extends Component {
     }
     navigateToHome = () => {
         this.props.navigation.navigate('Home')
+    }
+
+    navigateToCensorList = () => {
+        this.props.navigation.navigate('Censor')
     }
 
     initScreen = async () => {
