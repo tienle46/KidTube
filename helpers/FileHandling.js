@@ -1,4 +1,4 @@
-import {postData, getData} from './Fetching.js'
+import {postData, getData, postFormData} from './Fetching.js'
 import Linking from '../core/Linking'
 import {AsyncStorage} from 'react-native'
 
@@ -33,10 +33,29 @@ const getAllCommentByPostId = async (postId) => {
     return commentList
 }
 
+const uploadVideo = async (file, title, description) => {
+    let url = `${Linking.API_URL}${Linking.API_MEDIA}`
+    const filename = file.uri.split('/').pop();
+    const match = /\.(\w+)$/.exec(filename);
+    let type = match ? `video/${match[1]}` : `video`;
+    console.log(type)
+    let body = new FormData()
+    body.append('title', title)
+    body.append('description', description)
+    body.append('file', {uri: file.uri, name: filename, type});
+    let userToken = await getUserToken()
+    let headers = {
+        'x-access-token': userToken
+    }
+    const uploadAction = await postFormData(url, headers,body)
+    return uploadAction
+}
+
 export {
     getUserByUserId,
     getAllVideoByTag,
     getVideoScreenShot,
     getUserToken,
-    getAllCommentByPostId
+    getAllCommentByPostId,
+    uploadVideo
 }

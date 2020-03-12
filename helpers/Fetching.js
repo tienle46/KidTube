@@ -1,11 +1,11 @@
-// const postData = async (url = '', headers = {}, body = {}) => {
-//     const response = await fetch(url, {
-//         method: 'POST',
-//         headers: headers,
-//         body: JSON.stringify(body)
-//     })
-//     return await response.json()
-// }
+const postFormData = async (url = '', headers = {}, body = new FormData()) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: body
+    })
+    return await response.json()
+}
 
 const postData = async (url = '', 
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}, 
@@ -46,5 +46,6 @@ export {
     postData,
     getData,
     putData,
-    deleteData
+    deleteData,
+    postFormData
 }

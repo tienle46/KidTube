@@ -5,14 +5,74 @@ import {
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
 import {StringText} from '../core/en.js'
-import Authentication from '../helpers/Authentication.js'
-import {postData, getData} from '../helpers/Fetching.js'
 import Header from './components/Header.js'
+import * as ImagePicker from 'expo-image-picker'
+import Constants from 'expo-constants'
+import * as Permissions from 'expo-permissions'
+import {uploadVideo} from '../helpers/FileHandling.js'
+import Warning from '../core/Warning.js'
 
 export default class Upload extends Component {
+    constructor() {
+        super()
+        this.state = {
+            video: {},
+            description: '',
+            title: ''
+        }
+    }
     backToHome = () => {
         this.props.navigation.goBack()
     }
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!')
+            }
+        }
+    }
+
+    upload = async () => {
+        if (!this.state.video || !this.state.title || !this.state.description) {
+            alert (Warning.UPLOAD_MISSING_INFORMATION)
+        } else {
+            let uploadAction = await uploadVideo(this.state.video, this.state.title, this.state.description)
+        
+            if(uploadAction.message === 'File uploaded') {
+                alert(Warning.UPLOAD_SUCCESS)
+                this.props.navigation.push('HomeTab')
+            } else 
+                alert('UPLOAD_ERROR')
+        }
+    }
+
+    handleDescription = (description) => {
+        let finalDescription = new FormData()
+        let descriptionObject = {
+            description: description,
+            censored: false
+        }
+        finalDescription.append('description', JSON.stringify(descriptionObject))
+        return finalDescription
+    }
+
+    _pickVideo = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+            allowsEditing: true,
+            quality: 0.7
+        });
+        if (!result.cancelled) {
+            console.log(result)
+            this.setState({ video: result });
+        }
+    };
+    componentDidMount() {
+        this.getPermissionAsync();
+    }
+  
     render() {
         return(
             <View style = {styles.container}>
@@ -27,7 +87,7 @@ export default class Upload extends Component {
                                 style = {{width: '80%', height: '100%'}}
                                 placeholder = 'Title'
                                 autoCapitalize = 'none'
-                                onChangeText = {text => this.setState({signInPassword: text})}
+                                onChangeText = {text => this.setState({title: text})}
                             />
                         </View>
                         <View style = {styles.textInput}> 
@@ -35,13 +95,13 @@ export default class Upload extends Component {
                                 style = {{width: '80%', height: '100%'}}
                                 placeholder = 'Description'
                                 autoCapitalize = 'none'
-                                onChangeText = {text => this.setState({signInPassword: text})}
+                                onChangeText = {text => this.setState({description: this.handleDescription(text)})}
                             />
                         </View>
-                        <TouchableOpacity>
-                            <Text>{StringText.videoPicking}</Text>
+                        <TouchableOpacity onPress = {this._pickVideo}>
+                            <Text style = {[styles.buttonText, {color: 'black'}]}>{StringText.videoPicking}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style= {styles.signButton}>
+                        <TouchableOpacity style= {styles.signButton} onPress = {this.upload}>
                             <Text style = {styles.buttonText}>{StringText.upload}</Text>
                         </TouchableOpacity>
                     </View>

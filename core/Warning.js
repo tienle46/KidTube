@@ -8,7 +8,10 @@ const Warning = {
     SIGNUP_ERROR_INVALID_PASSWORD: 'Invalid password, must contain at least 5 chars. ',
     SIGNUP_ERROR_DUPLICATE_USERNAME: 'Email has been used! Please choose another one!',
     SIGNUP_ERROR_INVALID_EMAIL: 'Invalid email address.',
-    COMMENT_SUCCESS: 'Comment added'
+    COMMENT_SUCCESS: 'Comment added',
+    UPLOAD_MISSING_INFORMATION: 'Please fill all information',
+    UPLOAD_ERROR: 'Upload error!',
+    UPLOAD_SUCCESS: 'Video uploaded! Your video will be available after censorship process.'
 }
 
 export default Warning
