@@ -10,7 +10,7 @@ export const MediaStackScreen = () => {
   return(
     <MediaStack.Navigator 
       headerMode = 'none'
-      initialRoute = 'HomeTab'
+      initialRouteName = 'HomeTab'
       >
       <MediaStack.Screen 
         name="HomeTab" 

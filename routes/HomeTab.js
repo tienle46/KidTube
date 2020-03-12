@@ -10,7 +10,7 @@ export const HomeTabScreen = () => {
   return(
     <HomeTab.Navigator 
       headerMode = 'none'
-      initialRoute = 'Home'
+      initialRouteName = 'Home'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
