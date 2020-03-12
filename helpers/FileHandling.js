@@ -30,5 +30,6 @@ const getVideoScreenShot = (filename) => {
 export {
     getUserByUserId,
     getAllVideoByTag,
-    getVideoScreenShot
+    getVideoScreenShot,
+    getUserToken
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View,TouchableWithoutFeedback, TextInput, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View,TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView} from 'react-native'
 import Header from './components/Header.js'
 import {AppLoading} from 'expo'
 import { Video } from 'expo-av';
@@ -7,6 +7,8 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
 } from '../helpers/ResponsiveHelper.js'
+import Comment from './components/Comment'
+import {postNewComment} from '../helpers/CommentHelper'
 
 export default class Media extends Component {
     constructor() {
@@ -40,8 +42,9 @@ export default class Media extends Component {
         
     }
 
-    onSubmitCommentButtonPressed = () => {
-        console.log(this.state.comment)
+    onSubmitCommentButtonPressed = async () => {
+        let postComment = await postNewComment(this.state.videoInfo.videoId, this.state.comment)
+        console.log(postComment)
     }
 
     render() {
@@ -107,7 +110,14 @@ export default class Media extends Component {
                                 }}
                         />
                     </View>
+                    <ScrollView>
+                    <Comment/>
+                    <Comment/>
+                    <Comment/>
+                    <Comment/>
+                </ScrollView>
                 </View>
+                
                 }
             </View>
         )
@@ -179,7 +189,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         borderWidth: 1,
         borderColor: '#9e9e9e',
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: '5%'
     },
     commentInputContainer: {
         flexDirection: 'row',

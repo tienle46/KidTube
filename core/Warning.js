@@ -7,7 +7,8 @@ const Warning = {
     SIGNUP_ERROR_INVALID_USERNAME: 'Invalid username, must contain at least 3 chars. ',
     SIGNUP_ERROR_INVALID_PASSWORD: 'Invalid password, must contain at least 5 chars. ',
     SIGNUP_ERROR_DUPLICATE_USERNAME: 'Email has been used! Please choose another one!',
-    SIGNUP_ERROR_INVALID_EMAIL: 'Invalid email address.'
+    SIGNUP_ERROR_INVALID_EMAIL: 'Invalid email address.',
+    COMMENT_SUCCESS: 'Comment added'
 }
 
 export default Warning
