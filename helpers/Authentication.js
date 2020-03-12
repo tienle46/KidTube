@@ -9,9 +9,14 @@ const Authentication = {
         const loginAction = await postData(loginURL, {'Content-Type': 'application/x-www-form-urlencoded'},params)
         return handleLoginStatus(loginAction)
     },
-    signUp: async (username, password, email) => {
+    signUp: async (username, password, email, fullname) => {
         const signUpURL = `${Linking.API_URL}${Linking.API_USERS}`
-        let params = `username=${username}&password=${password}&email=${email}`
+        let fullnameObj = {
+            fullname: fullname,
+            admin: false
+        }
+        let fullnameParam = JSON.stringify(fullnameObj)
+        let params = `username=${username}&password=${password}&email=${email}&full_name=${fullnameParam}`
         const signUpAction = await postData(signUpURL, {'Content-Type': 'application/x-www-form-urlencoded'},params)
         return handleSignUpStatus(signUpAction, username)
     },

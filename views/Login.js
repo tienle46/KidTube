@@ -41,7 +41,7 @@ export default class Login extends Component {
     onSignUpButtonPressed = async () => {
         if(!this.state.confimedPassword)
             alert('Password does not match!')
-        let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername)
+        let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername, this.state.signUpFullname)
         if (signUp) {
             let login = await Authentication.login(this.state.signUpUsername,this.state.signUpPassword)
             if(Login)
@@ -113,6 +113,14 @@ export default class Login extends Component {
                     <View style = {styles.textInput}> 
                         <TextInput
                             style = {{width: '80%', height: '100%'}}
+                            placeholder = 'Full name'
+                            autoCapitalize = 'none'
+                            onChangeText = {text => this.setState({signUpFullname: text})}
+                        />
+                    </View>
+                    <View style = {styles.textInput}> 
+                        <TextInput
+                            style = {{width: '80%', height: '100%'}}
                             placeholder = 'Password'
                             autoCapitalize = 'none'
                             secureTextEntry = {true}
@@ -135,7 +143,7 @@ export default class Login extends Component {
                     <TouchableOpacity style= {styles.signButton} onPress = {this.onSignUpButtonPressed}>
                             <Text style = {styles.buttonText}>{StringText.signUp}</Text>
                     </TouchableOpacity>
-                    <View style = {{height: hp('14.8%')}}/>
+                    <View style = {{height: hp('6.8%')}}/>
                 </View>}
             </View>
         )
