@@ -51,7 +51,6 @@ export default class Home extends Component {
 
     initScreen = async () => {
         let listVideo = await getAllVideoByTag('kidtube')
-        console.log(listVideo)
         let flatListData = await this.handleFlatListData(listVideo)
         this.setState({flatListData: flatListData})
     }

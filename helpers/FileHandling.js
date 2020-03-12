@@ -27,9 +27,16 @@ const getVideoScreenShot = (filename) => {
     return url
 }
 
+const getAllCommentByPostId = async (postId) => {
+    let url = `${Linking.API_URL}${Linking.API_COMMENTS}${Linking.API_FILE}/${postId}`
+    let commentList = await getData(url)
+    return commentList
+}
+
 export {
     getUserByUserId,
     getAllVideoByTag,
     getVideoScreenShot,
-    getUserToken
+    getUserToken,
+    getAllCommentByPostId
 }

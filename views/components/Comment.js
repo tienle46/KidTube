@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        width: wp('100%'),
+        width: '100%',
         height: hp('7%'),
     },
     userImage: {

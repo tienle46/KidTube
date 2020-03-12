@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View,TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import {StyleSheet, Text, View,TouchableWithoutFeedback, TextInput, TouchableOpacity, ScrollView, FlatList} from 'react-native'
 import Header from './components/Header.js'
 import {AppLoading} from 'expo'
 import { Video } from 'expo-av';
@@ -9,6 +9,7 @@ import {
 } from '../helpers/ResponsiveHelper.js'
 import Comment from './components/Comment'
 import {postNewComment} from '../helpers/CommentHelper'
+import {getAllCommentByPostId, getUserByUserId} from '../helpers/FileHandling'
 
 export default class Media extends Component {
     constructor() {
@@ -23,9 +24,33 @@ export default class Media extends Component {
         this.props.navigation.goBack()
     }
 
-    initScreen = () => {
-        this.setState({videoInfo: this.props.route.params.item})
+    loadComment = async () => {
+        let commentList = await getAllCommentByPostId(this.state.videoInfo.videoId)
+        let commentFlatListData = await this.handleCommentList(commentList)
+        this.setState({commentFlatListData: commentFlatListData})
     }
+
+    initScreen = async () => {
+        await this.setState({videoInfo: this.props.route.params.item})
+        await this.loadComment()
+    }
+
+    handleCommentList = async (commentList) => {
+        let commentFlatListData = []
+        for (let i = 0; i < commentList.length; i++) {
+            let id = `${i}`
+            let comment = commentList[i].comment
+            let usernameObject = await getUserByUserId(commentList[i].user_id)
+            let username = usernameObject.username
+            let commentObject = {
+                id : id,
+                comment : comment,
+                username : username
+            }
+            commentFlatListData.push(commentObject)
+        }
+        return commentFlatListData.reverse()
+    } 
 
     getButtonTextColor = (input) => {
         if (input === 'about') {
@@ -44,7 +69,7 @@ export default class Media extends Component {
 
     onSubmitCommentButtonPressed = async () => {
         let postComment = await postNewComment(this.state.videoInfo.videoId, this.state.comment)
-        console.log(postComment)
+        await this.loadComment()
     }
 
     render() {
@@ -110,14 +135,17 @@ export default class Media extends Component {
                                 }}
                         />
                     </View>
-                    <ScrollView>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
-                </ScrollView>
+                    <FlatList
+                        data = {this.state.commentFlatListData}
+                        renderItem = {({item}) => (
+                            <Comment 
+                                username = {item.username}
+                                comment = {item.comment}
+
+                            />
+                        )}
+                    />
                 </View>
-                
                 }
             </View>
         )
