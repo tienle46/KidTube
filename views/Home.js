@@ -10,7 +10,7 @@ import {
     getUserByUserId,
     getAllVideoByTag,
     getVideoScreenShot,
-    getCensorStatus
+    getDescObject
 } from '../helpers/FileHandling.js'
 import {AppLoading} from 'expo'
 import Linking from '../core/Linking.js'
@@ -36,7 +36,9 @@ export default class Home extends Component {
             let videoDate = moment(listVideo[i].time_added).fromNow()
             let usernameObject = await getUserByUserId(listVideo[i].user_id)
             let username = usernameObject.username
-            let censorStatus = await getCensorStatus(videoId)
+            let descObject = await getDescObject(listVideo[i].file_id)
+            let videoDescription = descObject.description
+            let censoredStatus = descObject.censored
             let videoObject = {
                 id: `${i}`,
                 videoId: videoId,
@@ -44,15 +46,17 @@ export default class Home extends Component {
                 videoTitle: videoTitle,
                 videoScreenShotUrl: videoScreenShotUrl,
                 videoDate: videoDate,
-                username: username
+                username: username,
+                videoDescription: videoDescription
             }
-            flatListData.push(videoObject)
+            if(censoredStatus)
+                flatListData.push(videoObject)
         }
         return flatListData.reverse()
     }
 
     initScreen = async () => {
-        let listVideo = await getAllVideoByTag('kidtube')
+        let listVideo = await getAllVideoByTag('KidsTube')
         let flatListData = await this.handleFlatListData(listVideo)
         this.setState({flatListData: flatListData})
     }

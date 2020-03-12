@@ -21,10 +21,12 @@ const getAllVideoByTag = async (tag) => {
     return videoList
 }
 
-const getCensorStatus = async (fileId) => {
+const getDescObject = async (fileId) => {
     let url = `${Linking.API_URL}${Linking.API_MEDIA}/${fileId}`
     let fileInfo = await getData(url)
-    console.log(fileInfo.description)
+    let descObject = JSON.parse(fileInfo.description)
+    console.log(descObject)
+    return descObject
 }
 
 const getVideoScreenShot = (filename) => {
@@ -49,7 +51,6 @@ const uploadVideo = async (file, title, description) => {
     body.append('title', title)
     body.append('description', description)
     body.append('file', {uri: file.uri, name: filename, type});
-    console.log(body)
     let userToken = await getUserToken()
     let headers = {
         'x-access-token': userToken
@@ -65,7 +66,7 @@ const addTag = async (fileId) => {
         'Content-Type': 'application/x-www-form-urlencoded',
         'x-access-token': userToken
     }
-    let params = `file_id=${fileId}&tag=kidtube`
+    let params = `file_id=${fileId}&tag=KidsTube`
     const addTagAction = await postData(url, headers,params)
     return addTagAction
 }
@@ -78,5 +79,5 @@ export {
     getAllCommentByPostId,
     uploadVideo,
     addTag,
-    getCensorStatus
+    getDescObject
 }
