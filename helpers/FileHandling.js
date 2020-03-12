@@ -22,8 +22,11 @@ const getAllVideoByTag = async (tag) => {
 }
 
 const getVideoScreenShot = (filename) => {
-    let screenShotFileName = filename.split('.mp4').join('.png')
+    const match = /\.(\w+)$/.exec(filename)
+    console.log(filename)
+    let screenShotFileName = filename.split(match[0]).join('.png')
     let url = `${Linking.API_URL}${Linking.API_UPLOADS}/${screenShotFileName}`
+    console.log(url)
     return url
 }
 
