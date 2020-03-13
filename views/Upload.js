@@ -26,6 +26,7 @@ export default class Upload extends Component {
         this.props.navigation.goBack()
     }
 
+    //get user permission for using camera
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -35,6 +36,7 @@ export default class Upload extends Component {
         }
     }
 
+    //upload action
     upload = async () => {
         if (!this.state.video || !this.state.title || !this.state.description) {
             alert (Warning.UPLOAD_MISSING_INFORMATION)
@@ -53,6 +55,7 @@ export default class Upload extends Component {
         }
     }
 
+    //combine real description and censor status into desc object
     handleDescription = (description) => {
         let descriptionObject = {
             description: description,
@@ -61,6 +64,7 @@ export default class Upload extends Component {
         return JSON.stringify(descriptionObject)
     }
 
+    //picking video
     _pickVideo = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Videos,

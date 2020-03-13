@@ -24,6 +24,7 @@ export default class Media extends Component {
         this.props.navigation.goBack()
     }
 
+    //get comments
     loadComment = async () => {
         let commentList = await getAllCommentByPostId(this.state.videoInfo.videoId)
         let commentFlatListData = await this.handleCommentList(commentList)
@@ -35,6 +36,7 @@ export default class Media extends Component {
         await this.loadComment()
     }
 
+    //create list of comments
     handleCommentList = async (commentList) => {
         let commentFlatListData = []
         for (let i = 0; i < commentList.length; i++) {
@@ -52,6 +54,7 @@ export default class Media extends Component {
         return commentFlatListData.reverse()
     } 
 
+    //button opacity
     getButtonTextColor = (input) => {
         if (input === 'about') {
             if(this.state.commentOrAbout) {
@@ -69,6 +72,7 @@ export default class Media extends Component {
 
     onSubmitCommentButtonPressed = async () => {
         let postComment = await postNewComment(this.state.videoInfo.videoId, this.state.comment)
+        //reload
         await this.loadComment()
     }
 

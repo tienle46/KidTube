@@ -1,3 +1,4 @@
+//basic fetch 
 const postFormData = async (url = '', headers = {}, body = new FormData()) => {
     const response = await fetch(url, {
         method: 'POST',

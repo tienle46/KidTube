@@ -2,6 +2,8 @@ import {postData} from './Fetching.js'
 import Linking from '../core/Linking.js'
 import Warning from '../core/Warning.js'
 import {AsyncStorage} from 'react-native'
+
+//Handling login, signup and signout
 const Authentication = {
     login : async (username, password) => {
         const loginURL = `${Linking.API_URL}${Linking.API_LOGIN}`
@@ -27,6 +29,7 @@ const Authentication = {
     }
 }
 
+//output of signup action
 const handleSignUpStatus = (data, username) => {
     switch(data.message) {
         case Warning.SIGNUP_SUCCESS:
@@ -50,6 +53,7 @@ const handleSignUpStatus = (data, username) => {
     }
 }
 
+//output of signin action
 const handleLoginStatus = async  (data) => {
     switch(data.message) {
         case Warning.LOGIN_SUCCESS:
@@ -64,6 +68,7 @@ const handleLoginStatus = async  (data) => {
     }
 }
 
+//save user token and user data for use later
 const saveLoginData = async (token, user) => {
     try {
         await AsyncStorage.setItem('token', token)

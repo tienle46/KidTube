@@ -22,19 +22,22 @@ export default class Upload extends Component {
     }
 
     edit = async () => {
+        //if there are missing info
         if (!this.state.newPassword || !this.state.confirmPassword) {
             alert (Warning.UPLOAD_MISSING_INFORMATION)
         } else {
+            //if 2 info not match
             if (this.state.newPassword !== this.state.confirmPassword) {
                 alert(Warning.PASSWORD_NOT_MATCH)
             } else {
                 let editAction = await editPassword(this.state.newPassword)
                 switch (editAction.message) {
+                    //success
                     case Warning.EDIT_USER_SUCCESS:
                         alert(Warning.EDIT_USER_SUCCESS)
                         this.props.navigation.goBack()
                         break;
-
+                    //failed
                     case Warning.EDIT_USER_FAILED:
                         alert(Warning.EDIT_USER_FAILED)
                         this.props.navigation.goBack()

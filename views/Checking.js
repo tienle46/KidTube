@@ -1,3 +1,4 @@
+//screen for admin to approve video
 import React, {Component} from 'react'
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
 import Header from './components/Header.js'

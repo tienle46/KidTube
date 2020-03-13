@@ -1,3 +1,4 @@
+//the bottom tab stack include home screen and profile screen
 import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

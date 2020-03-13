@@ -1,3 +1,4 @@
+//getting necessary data for views
 import {postData, getData, postFormData, putData} from './Fetching.js'
 import Linking from '../core/Linking'
 import {AsyncStorage} from 'react-native'

@@ -1,3 +1,4 @@
+//Screen that show list of contents that waiting for authorize (can only see by admin)
 import React, {Component} from 'react'
 import {StyleSheet, Text, View, ScrollView, AsyncStorage, FlatList} from 'react-native'
 import {
@@ -28,6 +29,7 @@ export default class Censor extends Component {
         }
     }
 
+    //from video list, get the videos that have not been censored and push to the data list
     handleFlatListData = async (listVideo) => {
         let flatListData = []
         let contentList = await handleContentList(listVideo)

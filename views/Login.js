@@ -19,7 +19,7 @@ export default class Login extends Component {
             isLoading: true
         }
     }
-
+    //button opacity
     getButtonTextColor = (input) => {
         if (input === 'signin') {
             if(this.state.signIn) {
@@ -37,19 +37,21 @@ export default class Login extends Component {
 
     onSignInButtonPressed = async () => {
         let login = await Authentication.login(this.state.signInUsername,this.state.signInPassword)
-        if(login)
+        if(login) 
             this.props.navigation.navigate('MediaStack')
     }
 
     initScreen = async () => {
         let token = await AsyncStorage.getItem('token')
+        //if user hasnt signout, push him straight to the home page
         if(token) {
             this.props.navigation.navigate('MediaStack')
         }
     }
 
     onSignUpButtonPressed = async () => {
-        if(!this.state.confimedPassword)
+        //if password not match
+        if(this.state.confimedPassword)
             alert(Warning.PASSWORD_NOT_MATCH)
         let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername, this.state.signUpFullname)
         if (signUp) {

@@ -3,6 +3,7 @@ import Linking from '../core/Linking.js'
 import Warning from '../core/Warning.js'
 import {getUserToken} from './FileHandling.js'
 
+//handle action post a new comment
 const postNewComment = async (fileId, comment) => {
     let url = `${Linking.API_URL}${Linking.API_COMMENTS}/`
     const userToken = await getUserToken()
@@ -14,6 +15,7 @@ const postNewComment = async (fileId, comment) => {
     return handlePostComment(postCommentAction)
 }
 
+//output of the action
 const handlePostComment = (data) => {
     switch (data.message) {
         case Warning.COMMENT_SUCCESS:

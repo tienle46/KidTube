@@ -18,6 +18,8 @@ export default class Profile extends Component {
             isLoading: true,
         }
     }
+
+    //list of actions on page
     actionOnRows = (itemId) => {
         switch (itemId) {
             case '1':
@@ -78,6 +80,7 @@ export default class Profile extends Component {
             userEmail: userInfo.email
         })
         let isAdmin = await AsyncStorage.getItem('userIsAdmin')
+        //check if user is admin. list of uncensored contents will show if user is admin
         if(isAdmin !=='true') {
         let profileFunctions = [
             {
