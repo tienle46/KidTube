@@ -43,7 +43,7 @@ export default class Login extends Component {
 
     initScreen = async () => {
         let token = await AsyncStorage.getItem('token')
-        console.log(token)
+        (token)
         if(token) {
             this.props.navigation.navigate('MediaStack')
         }

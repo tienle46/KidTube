@@ -120,6 +120,7 @@ export default class Media extends Component {
                 {this.state.commentOrAbout ? 
                 <View style = {styles.commentContainer}>
                     <Text style = {styles.infoText}>Published by {this.state.videoInfo.username} {this.state.videoInfo.videoDate}</Text>
+                    <Text style = {styles.infoText}>About video: {this.state.videoInfo.videoDescription}</Text>
                 </View>
                 : 
                 <View style = {styles.commentContainer}>
