@@ -1,4 +1,6 @@
 //screen for admin to approve video
+//Cannot complete this feature because user have no admin power to edit other user' posts
+//Will do it after asking for admin permission
 import React, {Component} from 'react'
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native'
 import Header from './components/Header.js'
