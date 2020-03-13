@@ -32,9 +32,9 @@ export default class Home extends Component {
         let flatListData = []
         let contentList = await handleContentList(listVideo)
         for (let i = 0; i<contentList.length; i++) {
-            if(contentList[i].censoredStatus) {
+            // if(contentList[i].censoredStatus) {
                 flatListData.push(contentList[i])
-            }
+            // }
         }
         return flatListData.reverse()
     }

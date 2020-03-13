@@ -45,7 +45,7 @@ export default class Checking extends Component {
                 <Video
                     source={{ uri: this.state.videoInfo.videoUrl}}
                     rate={1.0}
-                    volume={0}
+                    volume={1.0}
                     isMuted={false}
                     resizeMode="cover"
                     shouldPlay

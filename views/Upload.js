@@ -18,7 +18,8 @@ export default class Upload extends Component {
         this.state = {
             video: {},
             description: '',
-            title: ''
+            title: '',
+            filename: StringText.videoPicking
         }
     }
     backToHome = () => {
@@ -67,7 +68,11 @@ export default class Upload extends Component {
             quality: 0.7
         });
         if (!result.cancelled) {
-            this.setState({ video: result });
+            let filename = result.uri.split('/').pop();
+            this.setState({ 
+                video: result,
+                filename: filename
+                });
         }
     };
     componentDidMount() {
@@ -100,7 +105,7 @@ export default class Upload extends Component {
                             />
                         </View>
                         <TouchableOpacity onPress = {this._pickVideo}>
-                            <Text style = {[styles.buttonText, {color: 'black'}]}>{StringText.videoPicking}</Text>
+                            <Text style = {[styles.buttonText, {color: 'black'}]}>{this.state.filename}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style= {styles.signButton} onPress = {this.upload}>
                             <Text style = {styles.buttonText}>{StringText.upload}</Text>
