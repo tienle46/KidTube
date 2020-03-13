@@ -10,5 +10,6 @@ export const StringText = {
     clickDelete: 'If there is any content of the video that is not suitable for kids, CLICK DETELE!',
     responsible: 'Your action will bring best experience for our future!',
     confirm: "Confirm",
-    delete: "Delete"
+    delete: "Delete",
+    edit: 'Edit Profile'
 }

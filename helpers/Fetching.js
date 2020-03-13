@@ -25,11 +25,11 @@ const getData = async (url = '', headers = {}) => {
     })
     return await response.json()
 }
-const putData = async (url = '', headers = {}, body = {}) => {
+const putData = async (url = '', headers = {}, body = '') => {
     const response = await fetch(url, {
         method: 'PUT',
         headers: headers,
-        body: JSON.stringify(body)
+        body: body
     })
     return await response.json()
 }

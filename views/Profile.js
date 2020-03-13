@@ -9,32 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Authentication from '../helpers/Authentication.js'
 import {AppLoading} from 'expo'
-let profileFunctions = [
-    {
-        id : '1',
-        icon: 'ios-heart-empty',
-        name: 'My favorites',
-        textColor: '#7e7e7e'
-    },
-    {
-        id : '2',
-        icon: 'ios-person',
-        name: 'My videos',
-        textColor: '#7e7e7e'
-    },
-    {
-        id : '3',
-        icon: 'ios-checkmark-circle-outline',
-        name: 'Waiting for checking',
-        textColor: '#7e7e7e'
-    },
-    {
-        id : '4',
-        icon: 'ios-power',
-        name: 'Log out',
-        textColor: '#FF4EB8'
-    },
-]
+import {getUserPost, getUser} from '../helpers/FileHandling.js'
 
 export default class Profile extends Component {
     constructor() {
@@ -46,10 +21,11 @@ export default class Profile extends Component {
     actionOnRows = (itemId) => {
         switch (itemId) {
             case '1':
+                this.navigateToEditProfile()
                 
                 break;
             case '2':
-                
+                alert('Coming soon')
                 break;
             case '3':
                 this.navigateToCensorList()
@@ -60,6 +36,11 @@ export default class Profile extends Component {
         }
     }
 
+    getPostCount = async () => {
+        let userPost = await getUserPost()
+        return userPost.length
+    }
+
     signOutAction = async () => {
         await Authentication.logout()
         this.props.navigation.navigate('Login')
@@ -68,33 +49,89 @@ export default class Profile extends Component {
         this.props.navigation.navigate('Home')
     }
 
+    navigateToEditProfile = () => {
+        this.props.navigation.navigate('EditProfile')
+    }
+
     navigateToCensorList = () => {
         this.props.navigation.navigate('Censor')
     }
 
+    getUserInfo = async () => {
+        let userObject = await getUser()
+        let userFullnameObject = JSON.parse(userObject.full_name)
+        let userFullname = userFullnameObject.fullname
+        let userEmail = userObject.email
+        let userInfo = {
+            fullname: userFullname,
+            email: userEmail
+        }
+        return userInfo
+    }
+
     initScreen = async () => {
-        let userInfo = await AsyncStorage.getItem('userIsAdmin')
-        if(userInfo !=='true') {
-            profileFunctions = [
-    {
-        id : '1',
-        icon: 'ios-heart-empty',
-        name: 'My favorites',
-        textColor: '#7e7e7e'
-    },
-    {
-        id : '2',
-        icon: 'ios-person',
-        name: 'My videos',
-        textColor: '#7e7e7e'
-    },
-    {
-        id : '4',
-        icon: 'ios-power',
-        name: 'Log out',
-        textColor: '#FF4EB8'
-    },
-]
+        let postCount = await this.getPostCount()
+        let userInfo = await this.getUserInfo()
+        this.setState({
+            postCount: postCount,
+            userFullname: userInfo.fullname,
+            userEmail: userInfo.email
+        })
+        let isAdmin = await AsyncStorage.getItem('userIsAdmin')
+        if(isAdmin !=='true') {
+        let profileFunctions = [
+            {
+                id : '1',
+                icon: 'ios-settings',
+                name: 'Edit password',
+                textColor: '#7e7e7e'
+            },
+            {
+                id : '2',
+                icon: 'ios-person',
+                name: 'My videos',
+                textColor: '#7e7e7e'
+            },
+            {
+                id : '4',
+                icon: 'ios-power',
+                name: 'Log out',
+                textColor: '#FF4EB8'
+            },
+        ]
+        this.setState({
+            profileFunctions: profileFunctions
+        })
+        } else {
+            let profileFunctions = [
+            {
+                id : '1',
+                icon: 'ios-settings',
+                name: 'Edit password',
+                textColor: '#7e7e7e'
+            },
+            {
+                id : '2',
+                icon: 'ios-person',
+                name: 'My videos',
+                textColor: '#7e7e7e'
+            },
+            {
+                id : '3',
+                icon: 'ios-checkmark-circle-outline',
+                name: 'Waiting for checking',
+                textColor: '#7e7e7e'
+            },
+            {
+                id : '4',
+                icon: 'ios-power',
+                name: 'Log out',
+                textColor: '#FF4EB8'
+            },
+        ]
+        this.setState({
+            profileFunctions: profileFunctions
+        })
         }
     }
 
@@ -118,38 +155,38 @@ export default class Profile extends Component {
                         <View style = {styles.identityContainer}>
                             <Image source = {blackImage} style = {styles.profilePic}/>
                             <View style = {styles.nameAndAddress}>
-                                <Text style = {styles.usernameText}>Le Minh Tien</Text>
-                                <Text style = {styles.addressText}>Timpurinkuja 1 A 5, 02650, Espoo</Text>
+                                <Text style = {styles.usernameText}>{this.state.userFullname}</Text>
+                                <Text style = {styles.addressText}>Somewhere on earth</Text>
                             </View>
                         </View>
                         <View style = {styles.additionalInfoContainer}>
                             <View style = {styles.phoneContainer}>
                                 <Ionicons name = 'ios-call' color = '#7e7e7e' size = {20}/>
-                                <Text style= {styles.additionalInfoText}>Tel: 0407379344</Text>
+                                <Text style= {styles.additionalInfoText}>Tel: 0404444444</Text>
                             </View>
                             <View style = {styles.phoneContainer}>
                                 <Ionicons name = 'ios-mail' color = '#7e7e7e' size = {20}/>
                                 <Text style= {styles.additionalInfoText}>Email: </Text>
-                                <Text style= {[styles.additionalInfoText, {marginLeft:0}]}>tienle4695@gmail.com</Text>
+                                <Text style= {[styles.additionalInfoText, {marginLeft:0}]}>{this.state.userEmail}</Text>
                             </View>
                         </View>
                     </View>
                     <View style = {styles.statisticContainer}>
                         <View style = {styles.cellStatistic}>
                             <Text style = {styles.statisticNumber}>
-                                1234
+                                {this.state.postCount}
                             </Text>
                             <Text style = {styles.statisticCount}>Posts</Text>
                         </View>
                         <View style = {[styles.cellStatistic, {borderLeftWidth: 1}]}>
                             <Text style = {styles.statisticNumber}>
-                                1234
+                                {this.state.postCount}
                             </Text>
                             <Text style = {styles.statisticCount}>Posts</Text>
                         </View>
                     </View>
                     <FlatList
-                        data={profileFunctions}
+                        data={this.state.profileFunctions}
                         scrollEnabled = {false}
                         renderItem = {({item}) => (
                             <TouchableOpacity style = {styles.optionListItem} onPress = {() => this.actionOnRows(item.id)}>

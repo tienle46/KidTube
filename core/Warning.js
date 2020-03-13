@@ -11,7 +11,10 @@ const Warning = {
     COMMENT_SUCCESS: 'Comment added',
     UPLOAD_MISSING_INFORMATION: 'Please fill all information',
     UPLOAD_ERROR: 'Upload error!',
-    UPLOAD_SUCCESS: 'Video uploaded! Your video will be available after censorship process.'
+    UPLOAD_SUCCESS: 'Video uploaded! Your video will be available after censorship process.',
+    PASSWORD_NOT_MATCH: 'Please check your confirm password',
+    EDIT_USER_FAILED: 'User data update failed',
+    EDIT_USER_SUCCESS: 'User data updated'
 }
 
 export default Warning

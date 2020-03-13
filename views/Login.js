@@ -8,6 +8,7 @@ import {StringText} from '../core/en.js'
 import Authentication from '../helpers/Authentication.js'
 import {postData, getData} from '../helpers/Fetching.js'
 import {AppLoading} from 'expo'
+import Warning from '../core/Warning.js'
 
 const appIcon = require('../assets/images/kidtubeIcon.png')
 export default class Login extends Component {
@@ -50,7 +51,7 @@ export default class Login extends Component {
 
     onSignUpButtonPressed = async () => {
         if(!this.state.confimedPassword)
-            alert('Password does not match!')
+            alert(Warning.PASSWORD_NOT_MATCH)
         let signUp = await Authentication.signUp(this.state.signUpUsername, this.state.signUpPassword, this.state.signUpUsername, this.state.signUpFullname)
         if (signUp) {
             let login = await Authentication.login(this.state.signUpUsername,this.state.signUpPassword)

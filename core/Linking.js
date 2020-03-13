@@ -6,6 +6,7 @@ const Linking = {
     API_UPLOADS: '/uploads',
     API_COMMENTS: '/comments',
     API_FILE: '/file',
-    API_MEDIA: '/media'
+    API_MEDIA: '/media',
+    API_USER: '/user',
 }
 export default Linking

@@ -6,6 +6,7 @@ import Media from '../views/Media.js'
 import Upload from '../views/Upload.js'
 import Censor from '../views/Censor.js'
 import Checking from '../views/Checking.js'
+import EditProfile from '../views/EditProfile.js'
 
 const MediaStack = createStackNavigator() 
 export const MediaStackScreen = () => {
@@ -33,6 +34,10 @@ export const MediaStackScreen = () => {
       <MediaStack.Screen 
         name="Checking" 
         component={Checking} 
+      />
+      <MediaStack.Screen 
+        name="EditProfile" 
+        component={EditProfile} 
       />
     </MediaStack.Navigator>
   )

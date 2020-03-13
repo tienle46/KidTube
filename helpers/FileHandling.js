@@ -1,10 +1,15 @@
-import {postData, getData, postFormData} from './Fetching.js'
+import {postData, getData, postFormData, putData} from './Fetching.js'
 import Linking from '../core/Linking'
 import {AsyncStorage} from 'react-native'
 import moment from 'moment'
 
 const getUserToken = async () => {
     return await AsyncStorage.getItem('token')
+}
+
+const getUser = async () => {
+    let user = await AsyncStorage.getItem('user')
+    return JSON.parse(user)
 }
 
 const getUserByUserId = async (userId) => {
@@ -100,6 +105,26 @@ const handleContentList = async (listVideo) => {
         return contentList
     }
 
+    const editPassword = async (password) => {
+        let url = `${Linking.API_URL}${Linking.API_USERS}`
+        let userToken = await getUserToken()
+        let headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-access-token': userToken
+        }
+        let params =`password=${password}`
+        let editAction = await putData(url, headers,params)
+        return editAction
+    }
+
+    const getUserPost = async () => {
+        let user = await getUser()
+        let userId = user.user_id
+        let url = `${Linking.API_URL}${Linking.API_MEDIA}${Linking.API_USER}/${userId}`
+        let getUserPostAction = await getData(url)
+        return getUserPostAction
+    }
+
 export {
     getUserByUserId,
     getAllVideoByTag,
@@ -109,5 +134,8 @@ export {
     uploadVideo,
     addTag,
     getDescObject,
-    handleContentList
+    handleContentList,
+    editPassword,
+    getUserPost,
+    getUser
 }
